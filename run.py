@@ -1,4 +1,5 @@
 from datetime import datetime
+import csv
 
 """
 The app is a Market Research sample tool to demonstrate how Python can be used
@@ -33,13 +34,40 @@ def log_event(event_msg):
         return False       
     return True
 
+def import_csv(file_name, dict_name):
+    """
+    Imports data from csv file to python dictionary
+    """
+    try:
+        with open(file_name,'r') as csvFile:
+            first_row = True
+            for row in csvFile:
+                columns = row.split(",")
+                print(f'Row: {row} \n Columns: {columns}\n')
+                if first_row:
+                    keyNames = row
+                    first_row = False
+                    print(f'Key Names: {keyNames}\n')
+                    continue
+                i = 0 
+ #               while i < len(columns):
+ #                   dict_name.append(keyNames[i],columns[i])
+ #                   print(f'Key: {keyNames[i]}  Value: {columns[i]}')
+    except OSError as e:
+        print(f'Unable to open CSV file. Please contact system manager with error:\n   >>  {e.args[1]}  <<')
+        return False                      
+#   print(dict_name)
 
+# def load_dictionaries():
 
 def main():
     """
     Entry and exit for the application
     Container and controller for launch of application functions
     """
-    log_event('Application Start')
+#    log_event('Application Start')
+    test_dic = {}
+    import_csv('population.csv', test_dic)
+
 
 main()
