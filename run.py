@@ -18,14 +18,28 @@ This run.py contains the functions to:
    - return a validation of the service run
    - allow the user to select another service or exit the app
 """
-def start_log():
+def log_event(event_msg):
     """
     Opens or creates a log file to record errors and operation results 
     for session.
     """
-    log = open('logfile.txt','+a')
-    now = datetime.now()
-    rundate = now.strftime('%m/%d/%Y %H:%M:%S%f')
-    log.write('\nlog for: ' + rundate)
+    try:
+        log = open('logfile.txt','+a')
+    except OSError as e:
+        print(f'Unable to open log file. Please contact system manager with error:\n {e.args[1]}')
+        return False
+    else:
+        now = datetime.now()
+        rundate = now.strftime('%m/%d/%Y %H:%M:%S%f')
+        log.write('\n' + rundate + '\t'+ event_msg)
+        log.close()
+    return True
 
-start_log()
+def main():
+    """
+    Entry and exit for the application
+    Container and controller for launch of application functions
+    """
+    log_event('Application Start')  
+
+main()
