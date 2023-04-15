@@ -34,17 +34,21 @@ def log_event(eventMsg):
         return False       
     return True
 
-def import_csv(fileName, dictName):
+def import_csv2dict(data_name):
     """
     Imports data from csv file to python dictionary
     """
+    file_name = data_name + '.csv'
+    print(file_name)
     try:
-        with open(fileName, 'r', encoding='utf-8-sig', newline='') as csvFile:
-            csvData = csv.reader(csvFile, dialect='excel')
-            firstRow = True
-            for row in csvData:
-                if firstRow:
-                    dictName = dict.fromkeys(row, None)
+        with open(file_name, 'r', encoding='utf-8-sig', newline='') as csv_file:
+            csv_data = csv.reader(csv_file, dialect='excel')
+            first_row = True
+            for row in csv_data:
+                if first_row:
+                    print(f'First Row: {row}')
+                    data_name = dict.fromkeys(row, None)
+                    first_row = False
                     continue
                 else:
                     break
@@ -55,7 +59,7 @@ def import_csv(fileName, dictName):
     except OSError as e:
         print(f'Unable to open CSV file. Please contact system manager with error:\n   >>  {e.args[1]}  <<')
         return False                      
-#   print(dict_name)
+
 
 # def load_dictionaries():
 
@@ -65,8 +69,8 @@ def main():
     Container and controller for launch of application functions
     """
 #    log_event('Application Start')
-    test_dic = {}
-    import_csv('population.csv', test_dic)
+
+    import_csv2dict('population')
 
 
 main()
