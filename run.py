@@ -19,7 +19,7 @@ This run.py contains the functions to:
    - return a validation of the service run
    - allow the user to select another service or exit the app
 """
-def log_event(event_msg):
+def log_event(eventMsg):
     """
     Opens or creates a log file to record errors and operation results 
     for session.
@@ -34,21 +34,20 @@ def log_event(event_msg):
         return False       
     return True
 
-def import_csv(file_name, dict_name):
+def import_csv(fileName, dictName):
     """
     Imports data from csv file to python dictionary
     """
     try:
-        with open(file_name,'r') as csvFile:
-            first_row = True
-            for row in csvFile:
-                columns = row.split(",")
-                print(f'Row: {row} \n Columns: {columns}\n')
-                if first_row:
-                    keyNames = row
-                    first_row = False
-                    print(f'Key Names: {keyNames}\n')
+        with open(fileName, 'r', encoding='utf-8-sig', newline='') as csvFile:
+            csvData = csv.reader(csvFile, dialect='excel')
+            firstRow = True
+            for row in csvData:
+                if firstRow:
+                    dictName = dict.fromkeys(row, None)
                     continue
+                else:
+                    break
                 i = 0 
  #               while i < len(columns):
  #                   dict_name.append(keyNames[i],columns[i])
