@@ -37,7 +37,15 @@ def log_event(eventMsg):
 def import_csv2dict(data_name):
     """
     Imports data from csv file to python dictionary
+    Assumes the csv file has headings in the first row
+    which are used to create dictionary keys
     """
+    # housekeeping - clear dictionary if it already exists
+    try:
+        data_name.clear()
+    except:
+        pass
+
     file_name = data_name + '.csv'
     print(file_name)
     try:
@@ -47,15 +55,16 @@ def import_csv2dict(data_name):
             for row in csv_data:
                 if first_row:
                     print(f'First Row: {row}')
+                    dict_keys = row
                     data_name = dict.fromkeys(row, None)
                     first_row = False
                     continue
                 else:
-                    break
-                i = 0 
- #               while i < len(columns):
- #                   dict_name.append(keyNames[i],columns[i])
- #                   print(f'Key: {keyNames[i]}  Value: {columns[i]}')
+                    print(f'data: {row}')
+                    data_name.append({dict_keys[i]:row[i] for i in range(0,len(row))})
+                    continue
+            print(data_name)
+
     except OSError as e:
         print(f'Unable to open CSV file. Please contact system manager with error:\n   >>  {e.args[1]}  <<')
         return False                      
