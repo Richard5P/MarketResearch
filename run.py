@@ -22,21 +22,35 @@ This run.py contains the functions to:
 
 # Contstants
 # Initialise statics dictionary with keys
-STATS = [
-    { 'stats_code':'popu',
-      'stats_name':'Population',
-      'value_type':'num',
-      'country_stats':[{
-         'country_code':None ,
-	     'country_name': None ,
-	     'region_code': None, 
-	     'region_name': None,
-	     'statistic':[{
-		    'year': None,
-		    'value': None
+STATS = [{'stats_code':'disp',
+        'stats_name':'Disposable Income',
+        'value_type':'val',
+        'country_stats':[{
+            'country_code':None ,
+	        'country_name': None ,
+	        'region_code': None, 
+	        'region_name': None,
+	        'statistic':[{
+		        'year': None,
+		        'value': None
 		    }]
         }]
-    }]
+    },
+    {'stats_code':'popu',
+        'stats_name':'Population',
+        'value_type':'num',
+        'country_stats':[{
+            'country_code':None ,
+	        'country_name': None ,
+	        'region_code': None, 
+	        'region_name': None,
+	        'statistic':[{
+		        'year': None,
+		        'value': None
+		    }]
+        }]
+    }
+]
 
 def log_event(eventMsg):
     """
@@ -53,13 +67,25 @@ def log_event(eventMsg):
         return False       
     return True
 
-def load_dict(stats_code, row):
+def load_country_stats(stats_code, row):
+    """
+    loads the country_stats keys with values from header row in file
+    """
+    print('load country stats')
+
+
+def load_dict(stats_code, header_row, row):
     """
     loads statical data from stats_code.csv into STATS
     updates STATS with country data for stats_code, iterating through nested structure
     """
-    print(stats_code, row)
-    
+    data_row = [row]
+    #STATS.update({[i]:row[i] for i in range(2,len(row))})
+    for stat in STATS:
+        print(stat['stats_code'], stats_code)
+        if stat['stats_code'] == stats_code:
+            STATS.update({stat['country_name']:row[0]})
+    print(STATS)
 
 def import_csv2dict(stats_name):
     """
@@ -68,8 +94,7 @@ def import_csv2dict(stats_name):
     Calls function to load remaining rows into STATS
     """
     file_name = stats_name + '.csv'
-    print(file_name)
-    stats_dict = dict()
+    header_row = []
     try:
         with open(file_name, 'r', encoding='utf-8-sig', newline='') as csv_file:
             csv_data = csv.reader(csv_file, dialect='excel')
@@ -77,22 +102,19 @@ def import_csv2dict(stats_name):
             for row in csv_data:
                 if first_row:
                     # skip the first row of headers as keys already set up
-                    print(f'First Row: {row}')
+                    #print(f'First Row: {row}')
+                    header_row = row
                     first_row = False
                     continue
                 else:
                     # Replace with iteration to update nested dictionaries with values
-                    print(f'data: {row}')
-                    load_dict(stats_name, row)              
+                    #print(f'data: {row}')
+                    load_dict(stats_name, header_row, row)              
                     continue
-            print(stats_name)
 
     except OSError as e:
         print(f'Unable to open CSV file. Please contact system manager with error:\n   >>  {e.args[1]}  <<')
         return False                      
-
-
-# def load_dictionaries():
 
 def main():
     """
@@ -100,7 +122,6 @@ def main():
     Container and controller for launch of application functions
     """
 #    log_event('Application Start')
-
     import_csv2dict('population')
 
 
