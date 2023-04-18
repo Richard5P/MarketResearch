@@ -19,6 +19,25 @@ This run.py contains the functions to:
    - return a validation of the service run
    - allow the user to select another service or exit the app
 """
+
+# Contstants
+# Initialise statics dictionary with keys
+STATS = [
+    { 'stats_code':'popu',
+      'stats_name':'Population',
+      'value_type':'num',
+      'country_stats':[{
+         'country_code':None ,
+	     'country_name': None ,
+	     'region_code': None, 
+	     'region_name': None,
+	     'statistic':[{
+		    'year': None,
+		    'value': None
+		    }]
+        }]
+    }]
+
 def log_event(eventMsg):
     """
     Opens or creates a log file to record errors and operation results 
@@ -34,36 +53,39 @@ def log_event(eventMsg):
         return False       
     return True
 
-def import_csv2dict(data_name):
+def load_dict(stats_code, row):
+    """
+    loads statical data from stats_code.csv into STATS
+    updates STATS with country data for stats_code, iterating through nested structure
+    """
+    print(stats_code, row)
+    
+
+def import_csv2dict(stats_name):
     """
     Imports data from csv file to python dictionary
-    Assumes the csv file has headings in the first row
-    which are used to create dictionary keys
+    Assumes the csv file has headings in the first row, skips it
+    Calls function to load remaining rows into STATS
     """
-    # housekeeping - clear dictionary if it already exists
-    try:
-        data_name.clear()
-    except:
-        pass
-
-    file_name = data_name + '.csv'
+    file_name = stats_name + '.csv'
     print(file_name)
+    stats_dict = dict()
     try:
         with open(file_name, 'r', encoding='utf-8-sig', newline='') as csv_file:
             csv_data = csv.reader(csv_file, dialect='excel')
             first_row = True
             for row in csv_data:
                 if first_row:
+                    # skip the first row of headers as keys already set up
                     print(f'First Row: {row}')
-                    dict_keys = row
-                    data_name = dict.fromkeys(row, None)
                     first_row = False
                     continue
                 else:
+                    # Replace with iteration to update nested dictionaries with values
                     print(f'data: {row}')
-                    data_name.append({dict_keys[i]:row[i] for i in range(0,len(row))})
+                    load_dict(stats_name, row)              
                     continue
-            print(data_name)
+            print(stats_name)
 
     except OSError as e:
         print(f'Unable to open CSV file. Please contact system manager with error:\n   >>  {e.args[1]}  <<')
