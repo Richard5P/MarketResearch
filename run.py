@@ -71,35 +71,44 @@ def log_event(eventMsg):
         return False       
     return True
 
-def load_country_stats(stats_code, row):
+def load_country_stats(stats_code, data_row, header_row):
     """
     loads the country_stats keys with values from header row in file
     """
     for stat in STATS:
-       print(stat['stats_code'], stats_code)
-       if stat['stats_code'] == stats_code:
+        if stat['stats_code'] == stats_code:
             for country in stat['country_stats']:
-                country['country_code'] = row[0]
-                country['country_name'] = row[1]
-                country['region_code'] = row[2]
-                country['region_name'] = row[3]
-    print(STATS)
+                country['country_code'] = data_row[0]
+                country['country_name'] = data_row[1]
+                country['region_code'] = data_row[2]
+                country['region_name'] = data_row[3]
+                load_statistics(country['statistics'], data_row, header_row)
 
+def load_statistics(stat_dict, data_row, header_row):
+    """
+    loads annual statistical data for each country from stats_code.csv into STATS
+    uses header row for year value and data rows for values
+    """
+    value_row = data_row
+    print(type(value_row), value_row)
+    listl = len(value_row)
+    print(f'\nlength of list {listl}')
+    key_row = header_row
+    #for x in value_row:
+     #   print(f'Im a row {x}')
+    i = 0
+    # NOTE: this might be a new (append) list 
+    for i in range(2,len(value_row)):
+        stat_dict[i-2]['year']= key_row[i]
+        stat_dict[i-2] ['value']= value_row[i]
+    print(f'in load_statistics\n')
+    #print(stat_dict)
 
-def load_statistics(stats_code, header_row, row):
-    """
-    loads statical data from stats_code.csv into STATS
-    updates STATS with country data for stats_code, iterating through nested structure
-    """
-    #data_row = [row]
-    #STATS.update({[i]:row[i] for i in range(2,len(row))})
-    
-    print('load_statistics')
 
 def import_csv2dict(stats_name):
     """
     Imports data from csv file to python dictionary
-    Assumes the csv file has headings in the first row, skips it
+    Assumes the csv file has headings in the first row for statistics keys
     Calls function to load remaining rows into STATS
     """
     stats_code = stats_name[:4]
@@ -112,12 +121,12 @@ def import_csv2dict(stats_name):
             for row in csv_data:
                 if first_row:
                     # store first row to use year headings for statistics value
-                    YEAR_KEYS = row
+                    header_row = row
                     first_row = False
-                    print(f'HDR row:\n {row}')
+                    #print(f'HDR row:\n {row}')
                     continue
                 else:
-                    load_country_stats(stats_code, row)
+                    load_country_stats(stats_code, row, header_row)
                     # Replace with iteration to update nested dictionaries with values
                     # print(f'data:\n {row}')
                     # load_dict(stats_name, header_row, row)              
