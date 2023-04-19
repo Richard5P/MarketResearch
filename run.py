@@ -6,6 +6,7 @@ The app is a Market Research sample tool to demonstrate how Python can be used
 to prepare and present a typical market reseach report for business analysis.
 There are two primary services: 
     1) Import statistical demographical data from an external file
+        Note: input files were created from XLXS spreadsheet and saved in CSV UTF-8(Comma delimited) format
     2) Prepare and present an ad-hoc market analysis report
 The functions for each of those 2 services are contained in separate .py files.
     1)import.py
@@ -44,13 +45,16 @@ STATS = [{'stats_code':'disp',
 	        'country_name': None ,
 	        'region_code': None, 
 	        'region_name': None,
-	        'statistic':[{
+	        'statistics':[{
 		        'year': None,
 		        'value': None
 		    }]
         }]
     }
 ]
+
+# List to hold years from header to be zipped with values
+YEAR_KEYS = []
 
 def log_event(eventMsg):
     """
@@ -71,21 +75,26 @@ def load_country_stats(stats_code, row):
     """
     loads the country_stats keys with values from header row in file
     """
-    print('load country stats')
+    for stat in STATS:
+       print(stat['stats_code'], stats_code)
+       if stat['stats_code'] == stats_code:
+            for country in stat['country_stats']:
+                country['country_code'] = row[0]
+                country['country_name'] = row[1]
+                country['region_code'] = row[2]
+                country['region_name'] = row[3]
+    print(STATS)
 
 
-def load_dict(stats_code, header_row, row):
+def load_statistics(stats_code, header_row, row):
     """
     loads statical data from stats_code.csv into STATS
     updates STATS with country data for stats_code, iterating through nested structure
     """
-    data_row = [row]
+    #data_row = [row]
     #STATS.update({[i]:row[i] for i in range(2,len(row))})
-    for stat in STATS:
-        print(stat['stats_code'], stats_code)
-        if stat['stats_code'] == stats_code:
-            STATS.update({stat['country_name']:row[0]})
-    print(STATS)
+    
+    print('load_statistics')
 
 def import_csv2dict(stats_name):
     """
@@ -93,6 +102,7 @@ def import_csv2dict(stats_name):
     Assumes the csv file has headings in the first row, skips it
     Calls function to load remaining rows into STATS
     """
+    stats_code = stats_name[:4]
     file_name = stats_name + '.csv'
     header_row = []
     try:
@@ -101,15 +111,16 @@ def import_csv2dict(stats_name):
             first_row = True
             for row in csv_data:
                 if first_row:
-                    # skip the first row of headers as keys already set up
-                    #print(f'First Row: {row}')
-                    header_row = row
+                    # store first row to use year headings for statistics value
+                    YEAR_KEYS = row
                     first_row = False
+                    print(f'HDR row:\n {row}')
                     continue
                 else:
+                    load_country_stats(stats_code, row)
                     # Replace with iteration to update nested dictionaries with values
-                    #print(f'data: {row}')
-                    load_dict(stats_name, header_row, row)              
+                    # print(f'data:\n {row}')
+                    # load_dict(stats_name, header_row, row)              
                     continue
 
     except OSError as e:
