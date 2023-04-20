@@ -21,6 +21,8 @@ This run.py contains the functions to:
    - allow the user to select another service or exit the app
 """
 
+### start of import functions  
+
 # Contstants
 # Initialise statics dictionary with keys
 STATS = [{'stats_code':'disp',
@@ -80,7 +82,6 @@ def load_country_stats(stats_code, data_row, header_row):
                 country['region_code'] = data_row[2]
                 country['region_name'] = data_row[3]
                 load_statistics(country['statistics'], data_row, header_row)
-        print(stat)
 
 def load_statistics(stat_dict, data_row, header_row):
     """
@@ -117,15 +118,64 @@ def import_csv2dict(stats_name):
 
     except OSError as e:
         print(f'Unable to open CSV file. Please contact system manager with error:\n   >>  {e.args[1]}  <<')
-        return False                      
+        return False
+   
+ #### end of import functions
+
+### start of input classes and functions
+class InvalidPercents(Exception):
+    """
+    Raise when percents don't add up to 100
+    """
+    pass
+
+def input_weights():
+    print(f'There are 3 report studies available for your report:')
+    print(f'\t Disposable Income, Population, Urbanisation\n')
+    print(f'Please enter 3 numbers which total to 100 for weighting the percent of each attribute\n')
+    pct_unset = True
+    while pct_unset:
+        try:
+            print(f'Disposable Income %: ')
+            disp_pct = int(input())
+            print(f'Population %: ')
+            popu_pct = int(input())
+            print(f'Urbanisation %: ')
+            urba_pct = int(input())
+            if ((disp_pct + popu_pct + urba_pct) != 100):
+                raise InvalidPercents
+            else:
+                return((disp_pct,popu_pct,urba_pct))
+        
+        except InvalidPercents:
+            print('\nAmounts entered do not sum to 100, please try again')
+
+def input_rpt_options(weights, years, regions):
+    """
+    Collect report options from user
+    option functions return a list of values
+    """
+    print('input_rpt_options')
+    weights = input_weights()
+    print(weights)
+#    years = input_years()
+#    regions = input_regions()
+
+
+#### end of input functions                 
 
 def main():
     """
     Entry and exit for the application
     Container and controller for launch of application functions
     """
+    weights = None
+    years = None
+    regions = None
 #    log_event('Application Start')
     import_csv2dict('population')
+    input_rpt_options(weights, years, regions)
+
 
 
 main()
