@@ -150,6 +150,24 @@ def input_weights():
         except InvalidPercents:
             print('\nAmounts entered do not sum to 100, please try again')
 
+def input_years():
+    print(f'The range of years studies available for your report are ')
+    print(f'\t Disposable Income, Population, Urbanisation\n')
+    print(f'Please enter 3 numbers which total to 100 for weighting the percent of each attribute\n')
+    pct_unset = True
+    while pct_unset:
+        try:
+            disp_pct = int(input('Disposable Income %:\n'))
+            popu_pct = int(input('Population %:\n'))
+            urba_pct = int(input('Urbanisation %:\n'))
+            if ((disp_pct + popu_pct + urba_pct) != 100):
+                raise InvalidPercents
+            else:
+                return((disp_pct,popu_pct,urba_pct))
+        
+        except InvalidPercents:
+            print('\nAmounts entered do not sum to 100, please try again')
+
 def input_rpt_options(weights, years, regions):
     """
     Collect report options from user
