@@ -21,6 +21,8 @@ This run.py contains the functions to:
    - allow the user to select another service or exit the app
 """
 
+### start of import functions  
+
 # Contstants
 # Initialise statics dictionary with keys
 STATS = [{'stats_code':'disp',
@@ -117,15 +119,35 @@ def import_csv2dict(stats_name):
 
     except OSError as e:
         print(f'Unable to open CSV file. Please contact system manager with error:\n   >>  {e.args[1]}  <<')
-        return False                      
+        return False
+       
+ #### end of import functions
+
+### start of input functions
+def input_rpt_options(weights, years, regions):
+    """
+    Collect report options from user
+    option functions return a list of values
+    """
+    weights = input_weights()
+    years = input_years()
+    regions = input_regions()
+
+
+#### end of input functions                 
 
 def main():
     """
     Entry and exit for the application
     Container and controller for launch of application functions
     """
+    weights = None
+    years = None
+    regions = None
 #    log_event('Application Start')
     import_csv2dict('population')
+    input_rpt_options(weights, years, regions)
+
 
 
 main()
