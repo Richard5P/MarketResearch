@@ -90,19 +90,23 @@ def load_statistics(stat_dict, data_row, header_row):
     uses header row for year value and data rows for values
     """
     value_row = data_row
-    print(type(value_row), value_row)
-    listl = len(value_row)
-    print(f'\nlength of list {listl}')
+    #print(type(value_row), value_row)
+    #listl = len(value_row)
+    #print(f'\nlength of list {listl}')
     key_row = header_row
     #for x in value_row:
      #   print(f'Im a row {x}')
-    i = 0
+    #i = 0
     # NOTE: this might be a new (append) list 
-    for i in range(2,len(value_row)):
-        stat_dict[i-2]['year']= key_row[i]
-        stat_dict[i-2] ['value']= value_row[i]
+    #for i in range(2,len(value_row)):
+    #    stat_dict[i-2]['year']= key_row[i]
+    #    stat_dict[i-2] ['value']= value_row[i]
+    print(f'{key_row[2]}:{value_row[2]}')
+    stat_dict.append({key_row[2]:value_row[2]})
+    print(stat_dict)
     print(f'in load_statistics\n')
-    #print(stat_dict)
+    quit()
+
 
 
 def import_csv2dict(stats_name):
