@@ -83,6 +83,7 @@ def load_country_stats(stats_code, data_row, header_row):
                 country['region_code'] = data_row[2]
                 country['region_name'] = data_row[3]
                 load_statistics(country['statistics'], data_row, header_row)
+        print(stat)
 
 def load_statistics(stat_dict, data_row, header_row):
     """
@@ -90,23 +91,9 @@ def load_statistics(stat_dict, data_row, header_row):
     uses header row for year value and data rows for values
     """
     value_row = data_row
-    #print(type(value_row), value_row)
-    #listl = len(value_row)
-    #print(f'\nlength of list {listl}')
     key_row = header_row
-    #for x in value_row:
-     #   print(f'Im a row {x}')
-    #i = 0
-    # NOTE: this might be a new (append) list 
-    #for i in range(2,len(value_row)):
-    #    stat_dict[i-2]['year']= key_row[i]
-    #    stat_dict[i-2] ['value']= value_row[i]
-    print(f'{key_row[2]}:{value_row[2]}')
-    stat_dict.append({key_row[2]:value_row[2]})
-    print(stat_dict)
-    print(f'in load_statistics\n')
-    quit()
-
+    for i in range(2,len(value_row)):
+        stat_dict.append({key_row[i]:value_row[i]})
 
 
 def import_csv2dict(stats_name):
@@ -124,16 +111,11 @@ def import_csv2dict(stats_name):
             first_row = True
             for row in csv_data:
                 if first_row:
-                    # store first row to use year headings for statistics value
                     header_row = row
                     first_row = False
-                    #print(f'HDR row:\n {row}')
                     continue
                 else:
-                    load_country_stats(stats_code, row, header_row)
-                    # Replace with iteration to update nested dictionaries with values
-                    # print(f'data:\n {row}')
-                    # load_dict(stats_name, header_row, row)              
+                    load_country_stats(stats_code, row, header_row)          
                     continue
 
     except OSError as e:
