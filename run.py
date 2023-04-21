@@ -136,12 +136,9 @@ def input_weights():
     pct_unset = True
     while pct_unset:
         try:
-            print(f'Disposable Income %: ')
-            disp_pct = int(input())
-            print(f'Population %: ')
-            popu_pct = int(input())
-            print(f'Urbanisation %: ')
-            urba_pct = int(input())
+            disp_pct = int(input('Disposable Income %: '))
+            popu_pct = int(input('Population %: '))
+            urba_pct = int(input('Urbanisation %: '))
             if ((disp_pct + popu_pct + urba_pct) != 100):
                 raise InvalidPercents
             else:
@@ -149,6 +146,9 @@ def input_weights():
         
         except InvalidPercents:
             print('\nAmounts entered do not sum to 100, please try again')
+        
+        except ValueError:
+            print('\nNumbers only, please try again')
 
 def input_years():
     print(f'The range of years studies available for your report are ')
