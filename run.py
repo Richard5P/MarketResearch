@@ -100,6 +100,7 @@ def import_csv2dict(stats_name):
     Assumes the csv file has headings in the first row for statistics keys
     Calls function to load remaining rows into STATS
     """
+    log_event('Import Start')
     stats_code = stats_name[:4]
     file_name = stats_name + '.csv'
     header_row = []
@@ -115,10 +116,11 @@ def import_csv2dict(stats_name):
                 else:
                     load_country_stats(stats_code, row, header_row)          
                     continue
-
     except OSError as e:
         print(f'Unable to open CSV file. Please contact system manager with error:\n   >>  {e.args[1]}  <<')
         return False
+    
+    log_event('Import Complete')
    
  #### end of import functions
 
@@ -160,7 +162,7 @@ def input_years():
             disp_pct = int(input('Disposable Income %:\n'))
             popu_pct = int(input('Population %:\n'))
             urba_pct = int(input('Urbanisation %:\n'))
-            if ((disp_pct + popu_pct + urba_pct) != 100):
+            if (disp_pct + popu_pct + urba_pct != 100):
                 raise InvalidPercents
             else:
                 return((disp_pct,popu_pct,urba_pct))
@@ -190,7 +192,7 @@ def main():
     weights = None
     years = None
     regions = None
-#    log_event('Application Start')
+    log_event('Application Start')
     import_csv2dict('population')
     input_rpt_options(weights, years, regions)
 
