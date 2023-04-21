@@ -55,7 +55,7 @@ STATS = [{'stats_code':'disp',
     }
 ]
 
-def log_event(eventMsg):
+def log_event(event_msg):
     """
     Opens or creates a log file to record errors and operation results 
     for session.
@@ -121,6 +121,7 @@ def import_csv2dict(stats_name):
         return False
     
     log_event('Import Complete')
+    print('Report data is ready\n')
    
  #### end of import functions
 
@@ -170,12 +171,12 @@ def input_years():
         except InvalidPercents:
             print('\nAmounts entered do not sum to 100, please try again')
 
-def input_rpt_options(weights, years, regions):
+def input_rpt_options(weights, years, regions, user_name):
     """
     Collect report options from user
     option functions return a list of values
     """
-    print('input_rpt_options')
+    print('Next step is to configure your report\n')
     weights = input_weights()
     print(weights)
 #    years = input_years()
@@ -189,12 +190,15 @@ def main():
     Entry and exit for the application
     Container and controller for launch of application functions
     """
+    # variables to be passed to reports
     weights = None
     years = None
     regions = None
-    log_event('Application Start')
+    user_name = input('Please enter your name:\n')
+    log_event('Application Start: '+user_name)
+    print(f'Hello {user_name}\n')
     import_csv2dict('population')
-    input_rpt_options(weights, years, regions)
+    input_rpt_options(weights, years, regions, user_name)
 
 
 
