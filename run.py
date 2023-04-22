@@ -22,6 +22,32 @@ from loadcsv import *
 from report import *
 from datetime import datetime
 
+# copied from Tomislav Dukez https://github.com/tomdu3
+import os
+import getch
+
+def key_press():
+    """
+    Pause flow and allow user to clear screen before next feature
+    """
+    print('\nPlease, press any key to clear the screen and continue...')
+    key = getch.getch()
+    return True
+
+def clear_screen():
+    '''
+    Clears the terminal screen
+    '''
+    # detects if the script is run on MS Windows system
+    # and uses the corresponding command
+    if os.name == 'nt':
+        os.system('cls')
+    # for Linux/MacOs different clear command
+    else:
+        os.system('clear')
+
+# end of copy
+
 def log_event(event_msg):
     """
     Opens or creates a log file to record errors and operation results 
@@ -50,7 +76,11 @@ def main():
     log_event('Application Start: '+user_name)
     print(f'Hello {user_name}\n')
     stats_dict = import_csv2dict('population')
+    if key_press():
+        clear_screen()
     print(stats_dict)
+    if key_press():
+        clear_screen()
     input_rpt_options(weights, years, regions, user_name)
 
 main()
