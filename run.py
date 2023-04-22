@@ -19,8 +19,8 @@ This run.py contains the functions to:
 """
 
 from loadcsv import *
+from report import *
 from datetime import datetime
-
 
 def log_event(event_msg):
     """
@@ -36,68 +36,6 @@ def log_event(event_msg):
         print(f'Unable to open log file. Please contact system manager with error:\n   >>  {e.args[1]}  <<')
         return False       
     return True
-#    log_event('Import Complete')
-#    print('Report data is ready\n')
-   
-### start of input classes and functions
-class InvalidPercents(Exception):
-    """
-    Raise when percents don't add up to 100
-    """
-    pass
-
-def input_weights():
-    print(f'There are 3 report studies available for your report:')
-    print(f'\t Disposable Income, Population, Urbanisation\n')
-    print(f'Please enter 3 numbers which total to 100 for weighting the percent of each attribute\n')
-    pct_unset = True
-    while pct_unset:
-        try:
-            disp_pct = int(input('Disposable Income %: '))
-            popu_pct = int(input('Population %: '))
-            urba_pct = int(input('Urbanisation %: '))
-            if ((disp_pct + popu_pct + urba_pct) != 100):
-                raise InvalidPercents
-            else:
-                return((disp_pct,popu_pct,urba_pct))
-        
-        except InvalidPercents:
-            print('\nAmounts entered do not sum to 100, please try again')
-        
-        except ValueError:
-            print('\nNumbers only, please try again')
-
-def input_years():
-    print(f'The range of years studies available for your report are ')
-    print(f'\t Disposable Income, Population, Urbanisation\n')
-    print(f'Please enter 3 numbers which total to 100 for weighting the percent of each attribute\n')
-    pct_unset = True
-    while pct_unset:
-        try:
-            disp_pct = int(input('Disposable Income %:\n'))
-            popu_pct = int(input('Population %:\n'))
-            urba_pct = int(input('Urbanisation %:\n'))
-            if (disp_pct + popu_pct + urba_pct != 100):
-                raise InvalidPercents
-            else:
-                return((disp_pct,popu_pct,urba_pct))
-        
-        except InvalidPercents:
-            print('\nAmounts entered do not sum to 100, please try again')
-
-def input_rpt_options(weights, years, regions, user_name):
-    """
-    Collect report options from user
-    option functions return a list of values
-    """
-    print('Next step is to configure your report\n')
-    weights = input_weights()
-    print(weights)
-#    years = input_years()
-#    regions = input_regions()
-
-
-#### end of input functions                 
 
 def main():
     """
