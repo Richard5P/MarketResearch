@@ -81,6 +81,7 @@ def main():
     print(stats_dict)
     if key_press():
         clear_screen()
-    input_rpt_options(weights, years, regions, user_name)
+    rpt_options = input_rpt_options(weights, years, regions, stat_dict)
+
 
 main()
