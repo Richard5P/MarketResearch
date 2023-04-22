@@ -78,10 +78,7 @@ def main():
     stats_dict = import_csv2dict('population')
     if key_press():
         clear_screen()
-    print(stats_dict)
-    if key_press():
-        clear_screen()
-    rpt_options = input_rpt_options(weights, years, regions, stat_dict)
-
+    rpt_options = input_rpt_options(weights, years, regions, stats_dict)
+    print(rpt_options)
 
 main()

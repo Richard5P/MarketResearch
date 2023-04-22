@@ -1,3 +1,7 @@
+from rpt_config import *
+from rpt_calc import *
+from rpt_output import *
+
 """
 This file contains the classes, function and variables for
 the production of statistical reports. The file is meant to be

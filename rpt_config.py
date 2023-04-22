@@ -22,7 +22,7 @@ def input_weights():
             if ((disp_pct + popu_pct + urba_pct) != 100):
                 raise InvalidPercents
             else:
-                return((disp_pct,popu_pct,urba_pct))
+                return([disp_pct,popu_pct,urba_pct])
         
         except InvalidPercents:
             print('\nAmounts entered do not sum to 100, please try again')
@@ -56,5 +56,6 @@ def input_rpt_options(weights, years, regions, stat_dict):
     print('Next step is to configure your report\n')
     weights = input_weights()
     print(weights)
+    return(weights)
 #    years = input_years()
 #    regions = input_regions()
