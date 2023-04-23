@@ -50,18 +50,22 @@ def load_country_stats(stats_code, data_row, header_row):
                 country['country_name'] = data_row[1]
                 country['region_code'] = data_row[2]
                 country['region_name'] = data_row[3]
-                load_statistics(country['statistics'], data_row, header_row)
+                country['statistics'] = load_statistics(data_row, header_row)
 
-def load_statistics(stat_dict, data_row, header_row):
+def load_statistics(data_row, header_row):
     """
-    loads annual statistical data for each country from stats_code.csv into STATS
+    loads annual statistical data for each country from stats_code.csv into 
+    a list of annual statistics and returns that to the load_country_stats
+    function to load with the other country statistics
     uses header row for year value and data rows for values
     """
+    annual_stats = []
     value_row = data_row
-    key_row = header_row
+    year_row = header_row
     for i in range(2,len(value_row)):
-        stat_dict.append({key_row[i]:value_row[i]})
-
+        annual_stats.append({'year':year_row[i],'value':value_row[i]})
+    print(annual_stats)
+    return(annual_stats)
 
 def import_csv2dict(stats_name):
     """

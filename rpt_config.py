@@ -46,8 +46,18 @@ def years_loaded(stat_dict):
     Returns the earliest and lastest statistic years in the dictionary
     Assumes all other report options have same years loaded
     """
-    test_dates = ['2011', '2018']
-    return(test_dates)
+    years_loaded = set()
+    for code in stat_dict:
+        if code['stats_code'] == 'popu':
+            for country in code['country_stats']:
+                for stat in country['statistics']:
+                    years_loaded.add(stat['year'])
+        else:
+            continue             
+    first_year = min(years_loaded)
+    last_year = max(years_loaded)
+    print(first_year, last_year)
+    return([first_year, last_year])
 
 def input_years(stat_dict):
     """
