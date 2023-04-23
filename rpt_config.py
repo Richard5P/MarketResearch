@@ -43,28 +43,32 @@ def input_weights():
 
 def years_loaded(stat_dict):
     """
-
+    Returns the earliest and lastest statistic years in the dictionary
+    Assumes all other report options have same years loaded
     """
+    test_dates = ['2011', '2018']
+    return(test_dates)
 
 def input_years(stat_dict):
     """
     Prompts user for date range report configuration
     """
-    print(f'The range of years studies available for your report are :')
-    first_last_years = years_loaded(stat_dict)
+    range_of_years = years_loaded(stat_dict)
+    print(f"'\nThe range of years studies available for your report are '\
+'from: {range_of_years[0]} to: {range_of_years[1]}'")
     print(f'Please enter a start year and an end year within that range (inclusive)\n')
     years_unset = True
     while years_unset:
         try:
-            start_year = int(input('Report start year:\n'))
-            end_year = int(input('Report end year %:\n'))
-            if !(start_year >= first_last_years[0] and end_year <= first_last_years[1]):
+            start_year = input('Report start year:\n')
+            end_year = input('Report end year:\n')
+            if not (start_year >= range_of_years[0] and end_year <= range_of_years[1]):
                 raise InvalidDateRange
             else:
                 return([start_year, end_year])
         
-        except InvalidDataRange:
-            print(f'\nYears must be between {range_list[0]} and {range_list[1]}, please try again')
+        except InvalidDateRange:
+            print(f'\nYears must be between {range_of_years[0]} and {range_of_years[1]}, please try again')
 
 def input_rpt_options(weights, years, regions, stat_dict):
     """
@@ -75,3 +79,4 @@ def input_rpt_options(weights, years, regions, stat_dict):
     weights = input_weights()
     years = input_years(stat_dict)
 #    regions = input_regions()
+    return([weights, years])

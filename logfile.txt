@@ -16,3 +16,10 @@
 04/22/2023 17:53:37599658	Application Start: mik
 04/22/2023 18:05:25400547	Application Start: Toby
 04/22/2023 18:15:06436010	Application Start: sdkf
+04/23/2023 11:23:11771059	Application Start: Rich
+04/23/2023 11:25:50791140	Application Start: tim
+04/23/2023 11:32:39108481	Application Start: Jim
+04/23/2023 12:03:48466672	Application Start: Jose
+04/23/2023 12:18:53548522	Application Start: Time
+04/23/2023 12:31:56271834	Application Start: kim
+04/23/2023 12:48:03882049	Application Start: jis

@@ -74,7 +74,7 @@ def main():
     regions = None
     user_name = input('Please enter your name:\n')
     log_event('Application Start: '+user_name)
-    print(f'Hello {user_name}\n')
+    print(f'\nHello {user_name}')
     stats_dict = import_csv2dict('population')
     if key_press():
         clear_screen()
