@@ -1,38 +1,5 @@
 
-04/21/2023 11:50:12596693	Application Start: Rick
-04/21/2023 11:50:12612596	Import Start
-04/21/2023 11:50:12637610	Import Complete
-04/21/2023 12:15:35554087	Application Start: Deutsch
-04/21/2023 12:15:35585832	Import Start
-04/21/2023 12:15:35605894	Import Complete
-04/22/2023 09:53:15229168	Application Start: Rix
-04/22/2023 10:11:17188035	Application Start: rxx
-04/22/2023 10:26:56109928	Application Start: riv
-04/22/2023 10:39:08657314	Application Start: Jim
-04/22/2023 11:37:54354700	Application Start: Rick
-04/22/2023 16:54:39106905	Application Start: RD1
-04/22/2023 17:43:04995924	Application Start: RD22
-04/22/2023 17:47:37709003	Application Start: rd55
-04/22/2023 17:53:37599658	Application Start: mik
-04/22/2023 18:05:25400547	Application Start: Toby
-04/22/2023 18:15:06436010	Application Start: sdkf
-04/23/2023 11:23:11771059	Application Start: Rich
-04/23/2023 11:25:50791140	Application Start: tim
-04/23/2023 11:32:39108481	Application Start: Jim
-04/23/2023 12:03:48466672	Application Start: Jose
-04/23/2023 12:18:53548522	Application Start: Time
-04/23/2023 12:31:56271834	Application Start: kim
-04/23/2023 12:48:03882049	Application Start: jis
-04/23/2023 15:15:10163694	Application Start: Mat
-04/23/2023 16:08:13314165	Application Start: kian
-04/23/2023 16:13:21830076	Application Start: max
-04/23/2023 16:18:02619969	Application Start: yue
-04/23/2023 16:23:49245321	Application Start: airn
-04/23/2023 16:30:28896478	Application Start: sdfsf
-04/23/2023 16:31:23985003	Application Start: osnd
-04/23/2023 17:07:58094070	Application Start: tinc
-04/23/2023 17:15:47440729	Application Start: Time
-04/23/2023 17:23:45529962	Application Start: will
-04/23/2023 17:33:45988698	Application Start: Tikr
-04/23/2023 17:59:20178216	Application Start: Rock
-04/23/2023 18:01:02267147	Application Start: Rock
+04/24/2023 10:01:56480387	Application Start: Tom
+04/24/2023 10:08:51233623	Application Start: Gim
+04/24/2023 10:15:43151597	Application Start: hip
+04/24/2023 10:18:56779388	Application Start: Yaw
