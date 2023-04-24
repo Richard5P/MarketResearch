@@ -62,10 +62,8 @@ def load_statistics(data_row, header_row):
     annual_stats = []
     value_row = data_row
     year_row = header_row
-    print(year_row, len(year_row), type(year_row))
     for i in range(4,len(year_row)):
         annual_stats.append({'year':year_row[i],'value':value_row[i]})
-    print(annual_stats)
     return(annual_stats)
 
 def import_csv2dict(stats_name):

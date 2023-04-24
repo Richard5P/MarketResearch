@@ -21,15 +21,15 @@ def input_weights():
     """
     Prompts user for study weight report configuration
     """
-    print(f'There are 3 report studies available for your report:')
-    print(f'\t Disposable Income, Population, Urbanisation\n')
-    print(f'Please enter 3 numbers which total to 100 for weighting the percent of each attribute\n')
+    print(f'There are 3 report studies available for your report:'\
+        f'\t Disposable Income, Population, Urbanisation\n')
+    print(f'Please enter 3 numbers which total to 100 for weighting the percent of each study')
     pct_unset = True
     while pct_unset:
         try:
-            disp_pct = int(input('Disposable Income %: '))
-            popu_pct = int(input('Population %: '))
-            urba_pct = int(input('Urbanisation %: '))
+            disp_pct = int(input('Disposable Income %:\n'))
+            popu_pct = int(input('Population %:\n'))
+            urba_pct = int(input('Urbanisation %:\n'))
             if ((disp_pct + popu_pct + urba_pct) != 100):
                 raise InvalidPercents
             else:
@@ -64,9 +64,10 @@ def input_years(stat_dict):
     Prompts user for date range report configuration
     """
     range_of_years = years_loaded(stat_dict)
-    print(f"'\nThe range of years studies available for your report are '\
-'from: {range_of_years[0]} to: {range_of_years[1]}'")
-    print(f'Please enter a start year and an end year within that range (inclusive)\n')
+    print(f'\nNow choose the range of years:')
+    print(f'The range of years studies available for your report are '\
+        f'from: {range_of_years[0]} to: {range_of_years[1]}')
+    print(f'\nPlease enter a start year and an end year within that range (inclusive)')
     years_unset = True
     while years_unset:
         try:
